@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Chart with Real-Time Data</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+   
+<body>
+    <section class="w-4/5 m-auto">
+        <canvas id="chart" ></canvas>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </section>
+    <script>
+
+const ctx = document.getElementById('chart').getContext('2d');
+        let chart;
+        
+        const initialData = {
+            labels: [],
+            datasets: [{
+                label: 'Value',
+                data: [],
+                borderColor: '#7DF9FF',
+                borderWidth: 1,
+                fill: false,
+            }],
+        };
+
+        const chartConfig = {
+            type: 'line',
+            data: initialData,
+            options: {
+                scales: {
+                    x: {
+                        type: 'linear',
+                        position: 'bottom',
+                        title: {
+                            display: true,
+                            text: 'Time',
+                        },
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Value',
+                        },
+                    },
+                },
+                animation: false,
+            },
+        };
+
+        chart = new Chart(ctx, chartConfig);
+
+        function addData() {
+            const newData = Math.random() * 100; 
+            chart.data.labels.push(chart.data.labels.length);
+            chart.data.datasets[0].data.push(newData);
+            chart.update(); 
+        }
+        setInterval(addData, 1000);
+    
+    </script>
+</body>
+</html>
